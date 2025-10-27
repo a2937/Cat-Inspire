@@ -1,0 +1,82 @@
+{
+	"name": "cat-inspire",
+	"description": "Cat Inspire - An inspiration app for writing",
+	"version": "0.0.1",
+	"publisher": "vscode-samples",
+	"private": true,
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": ""
+	},
+	"engines": {
+		"vscode": "^1.100.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onWebviewPanel:catInspire"
+	],
+	"main": "./out/extension.js",
+	"browser": "./dist/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "catInspire.start",
+				"title": "Start cat inspiration session",
+				"category": "Cat Inspire"
+			}
+		],
+		"configuration": {
+			"title": "CatInspire",
+			"type": "object",
+			"properties": {
+				"catInspire.validLanguages": {
+					"type": "array",
+					"default": [
+						"markdown",
+						"plaintext"
+					],
+					"description": "Languages to show the word counter in."
+				},
+				"catInspire.wordsTillNextPicture": {
+					"type": "number",
+					"default": 100,
+					"description": "How many words should be typed until a new cat picture should show up?"
+				},
+				"catInspire.catApiKey": {
+					"type": "string",
+					"default": "",
+					"description": "Optional API key for the https://thecatapi.com/ in order to fetch extra cat pictures."
+				}
+			}
+		}
+	},
+	"scripts": {
+		"vscode:prepublish:desktop": "npm run compile",
+		"vscode:prepublish:web": "npm run package-web",
+		"compile:desktop": "tsc -p ./",
+		"compile:web": "webpack",
+		"lint": "eslint",
+		"watch-web": "webpack --watch",
+		"package:web": "webpack --mode production --devtool hidden-source-map",
+		"watch": "tsc -w -p ./",
+		"open-in-browser": "vscode-test-web --extensionDevelopmentPath=. ."
+	},
+	"devDependencies": {
+		"@eslint/js": "^9.13.0",
+		"@stylistic/eslint-plugin": "^2.9.0",
+		"@types/node": "^22",
+		"@types/vscode": "^1.100.0",
+		"@types/vscode-webview": "^1.57.0",
+		"@types/webpack-env": "^1.18.8",
+		"@vscode/test-web": "^0.0.74",
+		"eslint": "^9.13.0",
+		"ts-loader": "^9.5.4",
+		"typescript": "^5.9.2",
+		"typescript-eslint": "^8.39.0",
+		"webpack": "^5.102.1",
+		"webpack-cli": "^6.0.1"
+	}
+}
