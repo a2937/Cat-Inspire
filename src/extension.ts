@@ -12,18 +12,18 @@ export function activate(context: vscode.ExtensionContext) {
 	
 	context.subscriptions.push(
 		vscode.commands.registerCommand("catInspire.start", () => {
-			CatCodingPanel.createOrShow(context.extensionUri);
+			CatInspirePanel.createOrShow(context.extensionUri);
 		})
 	);
 
 	if (vscode.window.registerWebviewPanelSerializer) {
 		// Make sure we register a serializer in activation event
-		vscode.window.registerWebviewPanelSerializer(CatCodingPanel.viewType, {
+		vscode.window.registerWebviewPanelSerializer(CatInspirePanel.viewType, {
 			async deserializeWebviewPanel(webviewPanel: vscode.WebviewPanel, state: unknown) {
 				console.log(`Got state: ${state}`);
 				// Reset the webview options so we use latest uri for `localResourceRoots`.
 				webviewPanel.webview.options = getWebviewOptions(context.extensionUri);
-				CatCodingPanel.revive(webviewPanel, context.extensionUri);
+				CatInspirePanel.revive(webviewPanel, context.extensionUri);
 			}
 		});
 	}
@@ -41,15 +41,15 @@ function getWebviewOptions(extensionUri: vscode.Uri): vscode.WebviewOptions {
 /**
  * Manages cat coding webview panels
  */
-class CatCodingPanel {
+class CatInspirePanel {
   private _statusBarItem!: StatusBarItem;
 
   /**
    * Track the currently panel. Only allow a single panel to exist at a time.
    */
-  public static currentPanel: CatCodingPanel | undefined;
+  public static currentPanel: CatInspirePanel | undefined;
 
-  public static readonly viewType = "catCoding";
+  public static readonly viewType = "CatInspire";
 
   private readonly _panel: vscode.WebviewPanel;
   private readonly _extensionUri: vscode.Uri;
@@ -63,24 +63,24 @@ class CatCodingPanel {
       : undefined;
 
     // If we already have a panel, show it.
-    if (CatCodingPanel.currentPanel) {
-      CatCodingPanel.currentPanel._panel.reveal(column);
+    if (CatInspirePanel.currentPanel) {
+      CatInspirePanel.currentPanel._panel.reveal(column);
       return;
     }
 
     // Otherwise, create a new panel.
     const panel = vscode.window.createWebviewPanel(
-      CatCodingPanel.viewType,
+      CatInspirePanel.viewType,
       "Cat Inspire",
       column || vscode.ViewColumn.One,
       getWebviewOptions(extensionUri)
     );
 
-    CatCodingPanel.currentPanel = new CatCodingPanel(panel, extensionUri);
+    CatInspirePanel.currentPanel = new CatInspirePanel(panel, extensionUri);
   }
 
   public static revive(panel: vscode.WebviewPanel, extensionUri: vscode.Uri) {
-    CatCodingPanel.currentPanel = new CatCodingPanel(panel, extensionUri);
+    CatInspirePanel.currentPanel = new CatInspirePanel(panel, extensionUri);
   }
 
   private constructor(panel: vscode.WebviewPanel, extensionUri: vscode.Uri) {
@@ -134,7 +134,7 @@ class CatCodingPanel {
   }
 
   public dispose() {
-    CatCodingPanel.currentPanel = undefined;
+    CatInspirePanel.currentPanel = undefined;
 
     // Clean up our resources
     this._panel.dispose();
