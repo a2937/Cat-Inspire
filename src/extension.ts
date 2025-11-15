@@ -201,7 +201,7 @@ class CatInspirePanel {
   if (this.catsURLs.length < 10) {
     this.fetchCats();
   }
-  const catIndex = Math.floor(Math.random() * this.catsURLs.length);
+  const catIndex = this.getIndexOfNewPicture();
 		this._panel.webview.html = this._getHtmlForWebview(
 			webview,
 			this.catsURLs[catIndex]
@@ -210,11 +210,15 @@ class CatInspirePanel {
 
   private _updateForCat(webview: vscode.Webview) {
     this._panel.title = "CatInspire";
-		const catIndex = Math.floor(Math.random() * this.catsURLs.length);
+		const catIndex = this.getIndexOfNewPicture();
 		webview.postMessage({
       command: "newPicture",
       newUrl: this.catsURLs[catIndex],
     });
+  }
+
+  private getIndexOfNewPicture() {
+    return Math.floor(Math.random() * (this.catsURLs.length - 1));
   }
 
   private _getHtmlForWebview(webview: vscode.Webview, catGifPath: string) {
@@ -279,7 +283,7 @@ function getNonce() {
 	let text = '';
 	const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 	for (let i = 0; i < 32; i++) {
-		text += possible.charAt(Math.floor(Math.random() * possible.length));
+		text += possible.charAt(Math.floor(Math.random() * (possible.length - 1)));
 	}
 	return text;
 }
