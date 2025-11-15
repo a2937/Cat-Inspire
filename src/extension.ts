@@ -268,7 +268,7 @@ class CatInspirePanel {
 			<body>
 				<h1 id="words-remaining">10 Words till next picture</h1>
 				<img id="cat-gif" src="${catGifPath}" width="95%" height="95%" />
-			
+        <p>&#x1F431; You can't edit something that doesn't exist</p> 
 				<script nonce="${nonce}" src="${scriptUri}"></script>
 			</body>
 			</html>`;
