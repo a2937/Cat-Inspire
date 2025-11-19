@@ -1,13 +1,15 @@
 {
 	"name": "cat-inspire",
+    "displayName": "Cat Inspire",
 	"description": "Cat Inspire - An inspiration app for writing",
+    "icon": "media/icon.png",
 	"version": "0.0.1",
 	"publisher": "NerdyNerdExtensionPublishing",
 	"private": true,
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": ""
+		"url": "https://github.com/a2937/Cat-Inspire"
 	},
 	"engines": {
 		"vscode": "^1.100.0"
